@@ -35,7 +35,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/traer")
-    private ResponseEntity<String> traerUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    private ResponseEntity<String> traerUsuario(@RequestParam String usuario, @RequestParam String password) {
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setUsuario(usuario);
+        usuarioDTO.setPassword(password);
         if(Objects.equals(usuarioService.findUsuario(usuarioDTO), "OK")) {
             return ResponseEntity.status(HttpStatus.OK).body("Usuario traer con exito");
         } else {

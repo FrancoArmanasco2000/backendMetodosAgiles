@@ -144,6 +144,9 @@ public class LicenciaService implements ILicenciaService {
             List<Licencia> licencias = licenciaRepository.findByTitular_NombreContainingIgnoreCaseOrTitular_ApellidoContainingIgnoreCaseOrTitular_GrupoSangreContainingIgnoreCaseOrTitular_Donante(nombre, apellido, grupoSangre, donante);
             List<LicenciaTItularDTO> licenciasEncontradas = new ArrayList<>();
             for(Licencia licencia : licencias) {
+
+                if(licencia.getFechaVencimiento().isBefore(LocalDate.now())) continue;
+
                 LicenciaDTO licenciaDTO = new LicenciaDTO();
                 licenciaDTO.setClase(licencia.getClase());
                 licenciaDTO.setCuit(licencia.getCuit());
